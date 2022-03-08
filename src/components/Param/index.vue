@@ -7,18 +7,6 @@
             <el-button type="primary">点击上传PDF或图片</el-button>
           </el-upload>
         </el-col>
-        <el-col :span="10">
-          <span>服务选择：</span>
-          <el-select v-model="serviceUrl" style="width: 50%">
-            <el-option
-              v-for="item in allService"
-              :key="item.name"
-              :label="item.name"
-              :value="item.url"
-            >
-            </el-option>
-          </el-select>
-        </el-col>
         <el-col :span="24">
           <span>文件名：{{ filePath }}</span>
         </el-col>
@@ -26,43 +14,19 @@
     </el-col>
     <el-col :span="14">
       <el-row justify="end">
-        <el-col :span="8">
-          <span>业务选择：</span>
-          <el-select v-model="param.bizModel" value-key="id">
-            <el-option
-              v-for="(item, index) in allBiz"
-              :key="index"
-              :label="item.name"
-              :value="item"
-            >
-            </el-option>
-          </el-select>
-        </el-col>
         <el-col :span="12">
           <el-button type="primary" @click="recog(1)" v-loading="ocrLoading">表格识别</el-button>
           <el-button type="primary" @click="recog(3)" v-loading="ocrLoading">文本识别</el-button>
-          <el-button
-            type="primary"
-            @click="recog(2)"
-            v-loading="ocrLoading"
-            :disabled="!serviceUrl.includes('/fdc')"
-          >
-            全页识别
-          </el-button>
         </el-col>
-        <!-- <el-col>
-          <param-form v-model:param="param" v-if="serviceUrl.includes('/fdc')"></param-form>
-        </el-col> -->
       </el-row>
     </el-col>
   </el-row>
 </template>
 <script setup lang="ts">
-import { DrawRect, Enables, TableRecogParam, allBiz, allService } from 'common/Models';
-import { ocrAll, ocrTable, ocrText } from 'common/Axios';
+import { DrawRect, Enables, TableRecogParam, allBiz } from 'common/Models';
+import { ocrTable, ocrText } from 'common/Axios';
 import { ElMessage } from 'element-plus';
 import { computed, ref, watch } from 'vue';
-import ParamForm from './Form.vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 const store = useStore();
@@ -79,13 +43,6 @@ if (typeof route.query.biz == 'string') {
 }
 
 var serviceUrl = ref('/fdc');
-if (typeof route.query.service == 'string') {
-  for (let service of allService) {
-    if (service.name == route.query.service) {
-      serviceUrl.value = service.url;
-    }
-  }
-}
 
 var ocrLoading = ref(false);
 watch(
@@ -111,8 +68,6 @@ function recog(type: number) {
   let reqfun = ocrTable;
   if (type == 1) {
     reqfun = ocrTable;
-  } else if (type == 2) {
-    reqfun = ocrAll;
   } else if (type == 3) {
     reqfun = ocrText;
   }
@@ -128,10 +83,8 @@ function recog(type: number) {
         if (type > 1) {
           let textLines = [];
           for (let textblock of res.Data.TextBlocks) {
-            // console.log(textblock);
             textLines.push(...textblock.TextLines);
           }
-          // store.commit('setTextResult', res.Data.TextBlocks[0].TextLines);
           store.commit('setTextResult', textLines);
         }
         if (type < 3) {

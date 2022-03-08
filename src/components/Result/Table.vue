@@ -3,7 +3,6 @@
     ref="refTable"
     :data="collectTable(table)"
     :width="600"
-    :cell-style="cellStyle"
     @cell-click="showRect"
     @cell-dblclick="showDetail"
   >
@@ -25,7 +24,6 @@ import { clip } from 'common/Utils';
 const store = useStore();
 const props = defineProps<{
   table: any;
-  // threshold: number;
 }>();
 const threshold = computed(() => store.state.confidenceThreshold);
 watch(
@@ -91,19 +89,6 @@ function getImage(cell: any) {
     return clip(store.state.imageElement, cell.CellRegion);
   }
   return '';
-}
-
-function cellStyle(obj: { row: any; column: any; rowIndex: any; columnIndex: any }) {
-  let cell = obj.row[obj.columnIndex];
-  if (cell) {
-    for (let textline of cell.TextLines) {
-      if (textline.Confidence < threshold.value) {
-        return {
-          color: '#FF0000',
-        };
-      }
-    }
-  }
 }
 
 function showRect(row: any, column: any) {

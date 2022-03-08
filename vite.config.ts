@@ -45,40 +45,11 @@ export default defineConfig({
     https: false,
     hmr: true,
     proxy: {
-      //配置跨域
-      '/fdc-prod': {
-        target: 'http://127.0.0.1:62000/',
-        changeOrigin: true, //允许跨域
-        timeout: 40000,
-        rewrite: (path) => path.replace(/^\/fdc-prod/, ''),
-      },
       '/fdc': {
-        target: 'http://127.0.0.1:15318/',
+        target: 'http://10.200.125.202:15318/',
         changeOrigin: true, //允许跨域
         timeout: 40000,
         rewrite: (path) => path.replace(/^\/fdc/, ''),
-      },
-      '/api/v1/samples': {
-        target: 'http://127.0.0.1:18089/',
-        changeOrigin: true, //允许跨域
-        timeout: 40000,
-      },
-      '/api/v1/tests': {
-        target: 'http://127.0.0.1:12291/',
-        changeOrigin: true, //允许跨域
-        timeout: 40000,
-      },
-
-      '/bdc': {
-        target: 'http://127.0.0.1:21386/',
-        changeOrigin: true, //允许跨域
-        timeout: 40000,
-        rewrite: (path) => path.replace(/^\/bdc/, ''),
-      },
-      '/valid': {
-        target: 'http://127.0.0.1:15320/',
-        changeOrigin: true, //允许跨域
-        timeout: 40000,
       },
     },
   },

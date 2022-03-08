@@ -56,14 +56,6 @@ class TableRecogParam {
       BizModel: this.bizModel.id,
       Enables: {
         // Font: this.bizModel.font,
-        // TableHead: this.bizModel.tableHead,
-        // TiltCorrection: this.bizModel.tiltCorrection,
-        // RmSealWhenCut: this.bizModel.rmSealWhenCut,
-        // RmSealWhenOCR: this.bizModel.rmSealWhenOCR,
-        // SubjectMode: this.bizModel.fiRecMode,
-        // Number: this.bizModel.number,
-        // TextcellCut: false,
-        // ColorImage: this.bizModel.colorImage,
         // Extend: false,
         Table: option?.table,
         Text: option?.text,
@@ -113,31 +105,5 @@ class Enables {
   }
 }
 const allBiz: Enables[] = [new Enables(), Enables.fiReport()];
-const allService = [
-  {
-    name: 'FDC-开发站',
-    url: '/fdc',
-  },
-  {
-    name: 'FDC-正式站',
-    url: '/fdc-prod',
-  },
-  {
-    name: 'BDC',
-    url: '/bdc',
-  },
-];
-const tableOption = ['位置正确', '切割错误', '定位错误'];
 
-const imageType = ['WFT表格', '财报附表', '财报主表'];
-export {
-  PdfRange,
-  Region,
-  TableRecogParam,
-  DrawRect,
-  Enables,
-  allBiz,
-  allService,
-  tableOption,
-  imageType,
-};
+export { PdfRange, Region, TableRecogParam, DrawRect, Enables, allBiz };

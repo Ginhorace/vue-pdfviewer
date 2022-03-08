@@ -29,33 +29,13 @@
             }}</el-descriptions-item>
           </el-descriptions>
         </el-col>
-        <el-col :span="6">
-          <span>识别结果：</span>
-          <el-select v-model="table.label" placeholder="选择表格标签" size="small">
-            <el-option
-              v-for="(item, index) in tableOption"
-              :key="index"
-              :label="item"
-              :value="item"
-            >
-            </el-option>
-          </el-select>
-        </el-col>
         <el-col :span="3">
           <div class="grid-content bg-purple">
             <el-button type="success" size="small" @click="copyTable(table)"> 复制表格 </el-button>
           </div>
         </el-col>
       </el-row>
-      <el-tooltip
-        class="box-item"
-        effect="dark"
-        content="单击单元格可以查看位置，双击可以修改文本"
-        placement="top"
-        :show-after="1500"
-      >
-        <table-vue :table="table" />
-      </el-tooltip>
+      <table-vue :table="table" />
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -65,7 +45,6 @@ import { ElMessage } from 'element-plus';
 import useClipboard from 'vue-clipboard3';
 import TableVue from './Table.vue';
 import { useStore } from 'vuex';
-import { tableOption } from 'common/Models';
 const store = useStore();
 const tables = computed({
   get: () => store.state.tableResult,

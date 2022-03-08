@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from 'components/View/Home.vue';
-import Sample from 'components/View/Sample.vue';
-import Test from 'components/View/Test.vue';
 const routes = [
   {
     path: '/',
@@ -9,24 +7,6 @@ const routes = [
     component: Home,
     meta: {
       title: '标注',
-      keepAlive: true, // 需要被缓存
-    },
-  },
-  {
-    path: '/sample',
-    name: 'Sample',
-    component: Sample,
-    meta: {
-      title: '样本查看',
-      keepAlive: true, // 需要被缓存
-    },
-  },
-  {
-    path: '/test',
-    name: 'Test',
-    component: Test,
-    meta: {
-      title: '测试',
       keepAlive: true, // 需要被缓存
     },
   },
